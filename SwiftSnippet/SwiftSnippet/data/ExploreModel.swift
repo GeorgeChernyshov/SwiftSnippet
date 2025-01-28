@@ -1,3 +1,5 @@
+import Foundation
+
 struct City {
     let name: String
     let country: String
@@ -9,8 +11,21 @@ struct City {
     }
 }
 
-struct ExploreModel {
+struct ExploreModel : Identifiable {
+    let id: UUID
     let city: City
     let description: String
     let imageUrl: String
+    
+    init(
+        id: UUID = UUID(),
+        city: City,
+        description: String,
+        imageUrl: String
+    ) {
+        self.id = id
+        self.city = city
+        self.description = description
+        self.imageUrl = imageUrl
+    }
 }

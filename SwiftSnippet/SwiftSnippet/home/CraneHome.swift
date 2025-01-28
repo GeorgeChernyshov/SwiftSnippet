@@ -7,16 +7,22 @@ struct CraneHome: View {
 }
 
 struct CraneHomeContent: View {
-    let viewModel = MainViewModel()
+//    @State var viewModel = MainViewModel()
+    
+    @State var restaurants = DestinationsLocalDataSource().craneRestaurants
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            HomeTabBar()
+            ExploreSection(exploreList: $restaurants)
         }
         .padding()
+    }
+}
+
+struct HomeTabBar: View {
+    var body: some View {
+        Text("Hello")
     }
 }
 
