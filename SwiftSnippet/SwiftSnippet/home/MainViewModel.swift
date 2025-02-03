@@ -1,9 +1,15 @@
-class MainViewModel {
+import Foundation
+
+class MainViewModel: ObservableObject {
     private let destinationsRepository = DI.destinationsRepository
     
-    var restaurants: [ExploreModel]
+    @Published var suggestedDestinations: [ExploreModel]
+    @Published var hotels: [ExploreModel]
+    @Published var restaurants: [ExploreModel]
     
     init() {
+        suggestedDestinations = destinationsRepository.destinations
+        hotels = destinationsRepository.hotels
         restaurants = destinationsRepository.restaraunts
     }
 }
