@@ -6,7 +6,7 @@ struct ExploreSection: View {
     @Binding var exploreList: [ExploreModel]
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text(title).font(.caption)
                 .foregroundStyle(.craneCaption)
                 .padding(.bottom, 8)
@@ -15,6 +15,14 @@ struct ExploreSection: View {
         }
         .padding(.horizontal, 24)
         .padding(.top, 20)
+        .background(
+            UnevenRoundedRectangle(
+                topLeadingRadius: 20,
+                topTrailingRadius: 20
+            )
+            .fill(.craneWhite)
+            .ignoresSafeArea()
+        )
     }
 }
 
@@ -23,13 +31,18 @@ struct ExploreList: View {
     
     var body: some View {
         List($exploreList) { $item in
-            VStack(alignment: .leading) {
+            VStack(
+                alignment: .leading,
+                spacing: 0
+            ) {
                 ExploreItem(item: $item)
                 Divider().overlay(.craneDivider)
             }
             .listRowSeparator(.hidden)
+            .listRowInsets(EdgeInsets())
         }
         .listStyle(PlainListStyle())
+        .scrollIndicators(.hidden)
     }
 }
 
@@ -37,7 +50,7 @@ struct ExploreItem: View {
     @Binding var item: ExploreModel
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             AsyncImage(
                 url: URL(string: item.imageUrl),
                 scale: 1,
@@ -59,7 +72,7 @@ struct ExploreItem: View {
             
             VStack(alignment: .leading) {
                 Text(item.city.getNameToDisplay())
-                    .font(.subheadline)
+                    .font(.title3)
                     .padding(.bottom, 8)
                 
                 Text(item.description)
@@ -67,6 +80,6 @@ struct ExploreItem: View {
                     .foregroundStyle(.craneCaption)
             }
         }
-        .padding(.horizontal, 12)
+        .padding(.vertical, 12)
     }
 }

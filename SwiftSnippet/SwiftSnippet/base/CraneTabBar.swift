@@ -6,8 +6,13 @@ struct CraneTabBar : View {
     
     var body: some View {
         HStack {
-            HStack {
+            HStack(spacing: 0) {
+                Image(.icMenu)
+                    .padding(.top, 8)
+                    .onTapGesture { onMenuClicked() }
+                
                 Image(.craneLogo)
+                    .padding(.leading, 8)
             }
             .padding(.top, 8)
             
@@ -27,7 +32,26 @@ struct CraneTabs : View {
             Spacer()
             
             ForEach(titles, id: \.rawValue) { item in
-                Text(item.rawValue.localizedUppercase)
+                let selected = (item == tabSelected)
+                let textView = Text(item.rawValue.localizedUppercase)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .font(.headline)
+                    .foregroundStyle(.craneWhite)
+                    .onTapGesture {
+                        onTabSelected(item)
+                    }
+                
+                if selected {
+                    textView
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(.craneWhite, lineWidth: 2)
+                        )
+                } else {
+                    textView
+                }
+                
                 Spacer()
             }
         }
